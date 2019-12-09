@@ -1,0 +1,10 @@
+diff --git a/Dockerfile b/Dockerfile
+index 5168bb18..5ca0e45d 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -1,4 +1,5 @@
+ FROM python:3.7
++LABEL maintainer="Gary Kim <gary@garykim.dev>"
+ RUN apt-get update \
+     && apt-get install -qqy --no-install-recommends \
+         apt-utils \

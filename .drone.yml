@@ -1,0 +1,36 @@
+kind: pipeline
+name: build-and-deploy
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: download-manim
+    image: docker:git
+    commands:
+      - git clone https://github.com/3b1b/manim manim-src
+      - (cd manim-src && git checkout $(cat ../version))
+      - (cd manim-src && git apply ../maintainer.patch)
+      - echo -n $(cd manim-src && git describe --tags),latest > .tags
+  - name: build-and-deploy-image
+    image: plugins/docker
+    when:
+      branch:
+        - master
+      event:
+        - push
+      repo:
+        - gary-kim/docker-manim
+    settings:
+      dockerfile: manim-src/Dockerfile
+      repo: garykim/manim
+      context: manim-src
+      username: garykim
+      password:
+        from_secret: docker_password
+
+---
+kind: secret
+name: docker_password
+data: zACvoUwx8rbboQ+qwAjmMYzB4V38eLn4anNMWWES2YXqUb2BoqUKbgieGjlHdg8U06KrrQuQsj6hYPAKgcPGpw==
