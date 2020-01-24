@@ -1,0 +1,6 @@
+{
+  "upstreamRepoUrl": "https://github.com/3b1b/manim",
+  "pullRequest": true,
+  "pullRequestNotify": "@gary-kim",
+  "useHashes": true
+}

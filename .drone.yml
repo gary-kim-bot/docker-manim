@@ -10,7 +10,7 @@ steps:
     image: docker:git
     commands:
       - git clone https://github.com/3b1b/manim manim-src
-      - (cd manim-src && git checkout $(cat ../version))
+      - (cd manim-src && git checkout $(cat ../VERSION))
       - (cd manim-src && git apply ../maintainer.patch)
       - echo -n $(cd manim-src && git describe --tags),latest > .tags
   - name: build-and-deploy-image
@@ -29,8 +29,3 @@ steps:
       username: garykim
       password:
         from_secret: docker_password
-
----
-kind: secret
-name: docker_password
-data: zACvoUwx8rbboQ+qwAjmMYzB4V38eLn4anNMWWES2YXqUb2BoqUKbgieGjlHdg8U06KrrQuQsj6hYPAKgcPGpw==
